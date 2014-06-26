@@ -21,9 +21,9 @@ import h5py
 
 # get some motor PV variables
 
-motor_readback_position = caget('XFZ39520:MOTOR1.RBV')
-motor_demand_position = caget('XFZ39520:MOTOR1.VAL')
-motor_velocity = caget('XFZ39520:MOTOR1.VELO')
+motor_readback_position = caget('XFZ39520:MOTOR.RBV')
+motor_demand_position = caget('XFZ39520:MOTOR.VAL')
+motor_velocity = caget('XFZ39520:MOTOR.VELO')
 
 # Get some other value
 signal_value = caget('XFZ39520:SIGNAL')
@@ -32,15 +32,20 @@ signal_value = caget('XFZ39520:SIGNAL')
 motor_positions = []
 def monitor_callback( position ):
     motor_positions.append( position )
-camonitor( 'XFZ39520:MOTOR1.RBV', monitor_callback )
+camonitor( 'XFZ39520:MOTOR.RBV', monitor_callback )
 
 # Drive the motor a bit - with a blocking function call to wait for completion
 # and a 5 second timeout
 new_demand_position = motor_readback_position + 10.0
 print "Starting move to: %.3f" % new_demand_position
-status = caput('XFZ39520:MOTOR1.VAL', new_demand_position, wait=True, timeout = 5.0)
+status = caput('XFZ39520:MOTOR.VAL', new_demand_position, wait=True, timeout = 5.0)
 
 print "Done moving, status = ", status.ok
 print "Motor positions recorded: "
 print motor_positions
+
+# Store the motor position array in an HDF5 file
+hdffile = h5py.File('scan_data.h5')
+hdffile['motor_positions'] = motor_positions
+hdffile.close()
 

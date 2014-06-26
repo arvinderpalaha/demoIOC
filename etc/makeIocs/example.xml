@@ -2,8 +2,9 @@
 <components arch="linux-x86_64">
 	<tpmac.pmacAsynIPPort IP="172.23.253.11" name="brick1port"/>
 	<tpmac.GeoBrick Port="brick1port" name="BRICK1"/>
-	<motor.basic_asyn_motor ADDR="1" DESC="Brick 1 motor 1" DHLM="100" DLLM="-100" EGU="um" M=":MOTOR1" MRES="0.0001" P="XFZ39520" PORT="BRICK1" PREC="2" TWV="100" VELO="10" name="motor"/>
-	<generic.generic_scan D01="XFZ39520:SIGNAL" P="XFZ39520" P1="XFZ39520:MOTOR1" S=":SCAN" name="scan"/>
+	<tpmac.pmacDisableLimitsCheck Controller="BRICK1"/>
+	<motor.basic_asyn_motor ADDR="2" DESC="Brick 1 motor 2" DHLM="100" DLLM="-100" EGU="um" M=":MOTOR" MRES="0.0001" P="XFZ39520" PORT="BRICK1" PREC="2" TWV="100" VELO="10" name="motor"/>
+	<generic.generic_scan D01="XFZ39520:SIGNAL" P="XFZ39520" P1="XFZ39520:MOTOR" S=":SCAN" name="scan"/>
 	<records.ai record="XFZ39520:SIGNAL"/>
 	<records.calcout record="XFZ39520:CALC"/>
 </components>
