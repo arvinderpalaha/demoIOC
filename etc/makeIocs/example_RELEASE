@@ -1,0 +1,6 @@
+# Place any example specific dependencies here
+
+TPMAC=$(SUPPORT)/tpmac/3-10dls17
+GENERIC=$(SUPPORT)/generic/2-33
+
+
